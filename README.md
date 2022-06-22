@@ -2,10 +2,14 @@
 
 A new Flutter project.
 
-Front-End : DART
-Back-End : DART
-State-Managment : RiverPod
-Database : SQLite
+<ul>
+<li> Front-End : <strong>DART</strong></li>
+<li>Back-End : <strong>DART</strong></li>
+<li>State-Managment :<strong> RiverPod</strong></li>
+<li>Database : <strong>SQLite</strong></li>
+</ul>
+
+
 
 
 ## Getting Started
