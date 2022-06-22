@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'DemoApp.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    // Adding ProviderScope enables Riverpod for the entire project
+    ProviderScope(child: MyApp()),
+  );
 }
 
 class MyApp extends StatefulWidget {
