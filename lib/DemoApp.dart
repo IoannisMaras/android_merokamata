@@ -91,7 +91,7 @@ class _DemoAppState extends ConsumerState<DemoApp> {
               return _handleData(date, ref);
             },
             events: events,
-            isExpandable: true,
+            isExpandable: false,
             //dayBuilder: DayBuilder(),
             isExpanded: true,
             dayOfWeekStyle: const TextStyle(
@@ -107,18 +107,29 @@ class _DemoAppState extends ConsumerState<DemoApp> {
             weekDays: ['Δευ', 'Τρί', 'Τετ', 'Πεμ', 'Παρ', 'Σαβ', 'Κυρ'],
             eventListBuilder:
                 (BuildContext context, List<CleanCalendarEvent> event) {
-              return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: event.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      child: Text(event[index].summary),
-                    );
-                  });
+              return ScrollConfiguration(
+                behavior: MyBehavior(),
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: event.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Card(
+                        child: Text(event[index].summary),
+                      );
+                    }),
+              );
             },
           ),
         ),
       ),
     );
+  }
+}
+
+class MyBehavior extends ScrollBehavior {
+  @override
+  Widget buildOverscrollIndicator(
+      BuildContext context, Widget child, ScrollableDetails details) {
+    return child;
   }
 }
