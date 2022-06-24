@@ -3,6 +3,8 @@ import 'package:flutter_clean_calendar/flutter_clean_calendar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 
+import '../Classes/HiveBoxes.dart';
+
 final selectedDayProvider =
     StateNotifierProvider<SelectDayController, DateTime?>((ref) {
   return SelectDayController();
@@ -31,7 +33,7 @@ class HiveDB {
   }
 
   _init() async {
-    Hive.registerAdapter(UserAdapter());
+    Hive.registerAdapter(EventsBoxAdapter());
     this._events =
         await Hive.openBox<Map<DateTime, List<CleanCalendarEvent>>>('events');
   }
@@ -40,7 +42,7 @@ class HiveDB {
     this._events.put('events', eventsMap);
   }
 
-  User getUser() {
+  EventsBox getUser() {
     return this._events.get('events');
   }
 }
