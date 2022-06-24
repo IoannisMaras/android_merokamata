@@ -1,4 +1,5 @@
 import 'package:flutter_clean_calendar/flutter_clean_calendar.dart';
+import 'package:build_runner/build_runner.dart';
 import 'package:hive/hive.dart';
 part 'HiveBoxes.g.dart';
 
@@ -10,3 +11,5 @@ class EventsBox extends HiveObject {
   @HiveField(1)
   List<CleanCalendarEvent> eventsList;
 }
+
+
