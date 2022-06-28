@@ -1,3 +1,4 @@
+import 'package:android_merokamata/Classes/HiveBoxes.dart';
 import 'package:android_merokamata/Providers/CalendarProviders.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,7 @@ class _DemoAppState extends ConsumerState<DemoApp> {
   };
 
   void _handleData(date, Ref) {
-    print(date);
+    //print(date);
     ref.read(selectedDayProvider.notifier).change(date);
     // setState(() {
     //   //selectedDay = date;
@@ -70,6 +71,11 @@ class _DemoAppState extends ConsumerState<DemoApp> {
   @override
   Widget build(BuildContext context) {
     selectedDay = ref.watch(selectedDayProvider);
+    final eventsMap = ref.watch(hiveProvider).value;
+    ref
+        .read(hiveProvider)
+        .storeEvent(EventsBox(date: DateTime.now(), eventsList: []));
+    print(eventsMap);
     return Scaffold(
       appBar: AppBar(
         title: Text('Calendar'),
@@ -85,7 +91,7 @@ class _DemoAppState extends ConsumerState<DemoApp> {
             eventDoneColor: Colors.amber,
             bottomBarColor: Colors.blue,
             onRangeSelected: (range) {
-              print('selected Day ${range.from},${range.to}');
+              //print('selected Day ${range.from},${range.to}');
             },
             onDateSelected: (date) {
               return _handleData(date, ref);

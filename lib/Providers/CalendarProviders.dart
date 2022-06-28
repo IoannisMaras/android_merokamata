@@ -34,15 +34,14 @@ class HiveDB {
 
   _init() async {
     Hive.registerAdapter(EventsBoxAdapter());
-    this._events =
-        await Hive.openBox<Map<DateTime, List<CleanCalendarEvent>>>('events');
+    this._events = await Hive.openBox<EventsBox>('events');
   }
 
-  storeUser(Map<DateTime, List<CleanCalendarEvent>> eventsMap) {
+  storeEvent(EventsBox eventsMap) {
     this._events.put('events', eventsMap);
   }
 
-  EventsBox getUser() {
+  EventsBox getEvents() {
     return this._events.get('events');
   }
 }

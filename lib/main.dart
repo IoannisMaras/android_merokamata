@@ -6,14 +6,19 @@ import 'package:hive/hive.dart';
 
 import 'Classes/HiveBoxes.dart';
 import 'DemoApp.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path_provider_android/path_provider_android.dart';
 
-late Box box;
+//late Box box;
 
 void main() async {
-  var path = Directory.current.path;
-  Hive.init(path);
-  box = await Hive.openBox('EventsBox');
-  Hive.registerAdapter(EventsBoxAdapter());
+  WidgetsFlutterBinding.ensureInitialized();
+  if (Platform.isAndroid) PathProviderAndroid.registerWith();
+
+  var path = await getApplicationDocumentsDirectory();
+  Hive.init(path.path);
+  //box = await Hive.openBox('EventsBox');
+  //Hive.registerAdapter(EventsBoxAdapter());
   runApp(
     // Adding ProviderScope enables Riverpod for the entire project
     ProviderScope(child: MyApp()),
