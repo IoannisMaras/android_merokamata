@@ -22,7 +22,7 @@ class SelectDayController extends StateNotifier<DateTime?> {
 final hiveProvider = FutureProvider<HiveDB>((_) => HiveDB.create());
 
 class HiveDB {
-  var _events;
+  late Box _events;
 
   HiveDB._create() {}
 
@@ -34,14 +34,15 @@ class HiveDB {
 
   _init() async {
     Hive.registerAdapter(EventsBoxAdapter());
-    this._events = await Hive.openBox<EventsBox>('events');
+    _events = await Hive.openBox<EventsBox>('events');
   }
 
-  storeEvent(EventsBox eventsMap) {
-    this._events.put('events', eventsMap);
+  storeEvent(CleanCalendarEvent events) {
+    _events.put('events', eventsMap);
   }
 
-  EventsBox getEvents() {
-    return this._events.get('events');
+  CleanCalendarEvent getEvents(index) {
+    List<CleanCalendarEvent> temp = _events.get('events');
+    return temp[index];
   }
 }
