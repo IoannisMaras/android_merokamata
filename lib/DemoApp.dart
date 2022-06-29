@@ -72,9 +72,8 @@ class _DemoAppState extends ConsumerState<DemoApp> {
   Widget build(BuildContext context) {
     selectedDay = ref.watch(selectedDayProvider);
     final eventsMap = ref.watch(hiveProvider).value;
-    ref
-        .read(hiveProvider)
-        .storeEvent(EventsBox(date: DateTime.now(), eventsList: []));
+    eventsMap!.storeEvent(EventsBox(date: DateTime.now(), eventsList: []));
+    print(eventsMap.getEvents());
     print(eventsMap);
     return Scaffold(
       appBar: AppBar(
