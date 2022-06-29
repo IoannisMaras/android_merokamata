@@ -71,10 +71,8 @@ class _DemoAppState extends ConsumerState<DemoApp> {
   @override
   Widget build(BuildContext context) {
     selectedDay = ref.watch(selectedDayProvider);
-    final eventsMap = ref.watch(hiveProvider).value;
-    eventsMap!.storeEvent(EventsBox(date: DateTime.now(), eventsList: []));
-    print(eventsMap.getEvents());
-    print(eventsMap);
+    final eventsMap = ref.watch(hiveProvider);
+    //eventsMap!.storeEvent(EventsBox(date: DateTime.now(), eventsList: []));
     return Scaffold(
       appBar: AppBar(
         title: Text('Calendar'),
@@ -113,16 +111,25 @@ class _DemoAppState extends ConsumerState<DemoApp> {
             eventListBuilder:
                 (BuildContext context, List<CleanCalendarEvent> event) {
               return ScrollConfiguration(
-                behavior: MyBehavior(),
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: event.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Card(
-                        child: Text(event[index].summary),
-                      );
-                    }),
-              );
+                  behavior: MyBehavior(),
+                  child: eventsMap.when(data: (data) {
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: data,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Card(
+                            child: Text(event[index].summary),
+                          );
+                        });
+                  }, error: (error, s) {
+                    return const Center(
+                      child: Text("error"),
+                    );
+                  }, loading: () {
+                    return const Center(
+                      child: Text("loading"),
+                    );
+                  }));
             },
           ),
         ),
