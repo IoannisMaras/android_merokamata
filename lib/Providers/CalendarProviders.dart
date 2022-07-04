@@ -37,12 +37,16 @@ class HiveDB {
     _events = await Hive.openBox<EventsBox>('events');
   }
 
-  storeEvent(CleanCalendarEvent events) {
-    _events.put('events', eventsMap);
+  storeEvent(List<CleanCalendarEvent> events,DateTime index) {
+    String dateToString = index.day.toString() +index.month.toString() + index.year.toString();
+    _events.put(dateToString,events);
   }
 
-  CleanCalendarEvent getEvents(index) {
-    List<CleanCalendarEvent> temp = _events.get('events');
-    return temp[index];
+  List<CleanCalendarEvent> getEvents(DateTime index) {
+
+    String dateToString = index.day.toString() +index.month.toString() + index.year.toString();
+    
+    List<CleanCalendarEvent> temp = _events.get(dateToString,defaultValue: null);
+    return temp;
   }
 }

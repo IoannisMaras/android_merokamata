@@ -113,12 +113,14 @@ class _DemoAppState extends ConsumerState<DemoApp> {
               return ScrollConfiguration(
                   behavior: MyBehavior(),
                   child: eventsMap.when(data: (data) {
+                    data.storeEvent(selectedEvent!, selectedDay!);
                     return ListView.builder(
                         shrinkWrap: true,
-                        itemCount: data,
+                        itemCount: data.getEvents(selectedDay!).length,
                         itemBuilder: (BuildContext context, int index) {
+
                           return Card(
-                            child: Text(event[index].summary),
+                            child: Text(data.getEvents(selectedDay!)[0].summary),
                           );
                         });
                   }, error: (error, s) {
