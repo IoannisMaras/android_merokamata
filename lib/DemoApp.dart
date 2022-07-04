@@ -14,7 +14,7 @@ class DemoApp extends ConsumerStatefulWidget {
 }
 
 class _DemoAppState extends ConsumerState<DemoApp> {
-  DateTime? selectedDay;
+  DateTime selectedDay = DateTime.now();
 
   List<CleanCalendarEvent>? selectedEvent;
 

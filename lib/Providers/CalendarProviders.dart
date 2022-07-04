@@ -6,12 +6,12 @@ import 'package:hive/hive.dart';
 import '../Classes/HiveBoxes.dart';
 
 final selectedDayProvider =
-    StateNotifierProvider<SelectDayController, DateTime?>((ref) {
+    StateNotifierProvider<SelectDayController, DateTime>((ref) {
   return SelectDayController();
 });
 
-class SelectDayController extends StateNotifier<DateTime?> {
-  SelectDayController() : super(null);
+class SelectDayController extends StateNotifier<DateTime> {
+  SelectDayController() : super(DateTime.now());
 
   void change(DateTime time) {
     //print("test");
